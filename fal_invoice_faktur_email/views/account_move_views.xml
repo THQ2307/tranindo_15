@@ -1,0 +1,27 @@
+<odoo>
+    <!-- Account Move -->
+    <record id='add_extension_account_move_form' model='ir.ui.view'>
+        <field name="name">add_extension_account_move_form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='other_info']" position="before">
+                <page string="Faktur Pajak">
+                    <field name="faktur_file" widget="pdf_viewer" nolabel="1" required='1'/>
+                </page>
+                <page string="Purchase Order">
+                    <field name="po_file" widget="pdf_viewer" nolabel="1" required='1'/>
+                </page>
+                <page string="Invoice">
+                    <field name="invoice_file" widget="pdf_viewer" nolabel="1" required='1'/>
+                </page>
+                <page string="Surat Jalan">
+                    <field name="surat_jalan_file" widget="pdf_viewer" nolabel="1" required='1'/>
+                </page>
+            </xpath>
+            <xpath expr="//button[@name='action_invoice_sent']" position='after'>
+                <button name='action_send_mail' string='Send Email Invoice' type="object"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
