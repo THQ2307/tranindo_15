@@ -12,12 +12,14 @@
         Module to handle tranindo extention from falinwa
     ''',
     'depends': [
+        'sale',
         'sale_stock',
         'account',
+        'stock',
     ],
     'data': [
-        'views/sale_views.xml',
         'views/account_move_views.xml',
+        'views/sale_order_views.xml',
         'report/c5_report.xml',
     ],
     'css': [],

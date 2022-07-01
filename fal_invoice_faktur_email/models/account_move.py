@@ -39,7 +39,7 @@ class AccountMove(models.Model):
             'name': "Faktur Report",
             'type': 'binary',
             'datas': self.faktur_file,
-            'datas_fname': 'Faktur Report',
+            # 'datas_fname': 'Faktur Report',
             'res_model': 'account.move',
         }
 
@@ -47,7 +47,7 @@ class AccountMove(models.Model):
             'name': "Purchase Report",
             'type': 'binary',
             'datas': self.po_file,
-            'datas_fname': 'Purchase Report',
+            # 'datas_fname': 'Purchase Report',
             'res_model': 'account.move',
         }
 
@@ -55,7 +55,7 @@ class AccountMove(models.Model):
             'name': "Invoice Report",
             'type': 'binary',
             'datas': self.invoice_file,
-            'datas_fname': 'Invoice Report',
+            # 'datas_fname': 'Invoice Report',
             'res_model': 'account.move',
         }
 
@@ -63,7 +63,7 @@ class AccountMove(models.Model):
             'name': "Surat Jalan Report",
             'type': 'binary',
             'datas': self.surat_jalan_file,
-            'datas_fname': 'Surat Jalan',
+            # 'datas_fname': 'Surat Jalan',
             'res_model': 'account.move',
         }
 

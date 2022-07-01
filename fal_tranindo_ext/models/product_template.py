@@ -1,8 +1,9 @@
 from odoo import fields, models, api
 from odoo import _
 from odoo.exceptions import UserError, ValidationError
-import logging
 import odoo.addons.decimal_precision as dp
+
+import logging
 _logger = logging.getLogger(__name__)
 
 
