@@ -21,6 +21,8 @@
         'views/account_move_views.xml',
         'views/sale_order_views.xml',
         'report/c5_report.xml',
+        'e_faktur/e_faktur_account_move_view.xml',
+        'e_faktur/e_faktur_res_partner_view.xml',
     ],
     'css': [],
     'js': [],

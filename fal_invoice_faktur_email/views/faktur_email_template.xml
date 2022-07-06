@@ -41,7 +41,7 @@
                                         <th style='border: 1px solid; text-align: center;'>Faktur Pajak</th>
                                     </tr>
                                     <tr>
-                                        <td style='border: 1px solid; text-align: center;'><t t-out="object.date_invoice.strftime('%d %B %Y')"/></td>
+                                        <td style='border: 1px solid; text-align: center;'><t t-out="object.invoice_date.strftime('%d %B %Y')"/></td>
                                         <td style='border: 1px solid; text-align: center;'><t t-out="object.partner_id.name"/></td>
                                         <td style='border: 1px solid; text-align: center;'><t t-out="object.amount_total"/></td>
                                         <td style='border: 1px solid; text-align: center;'><t t-out="object.name"/></td>
