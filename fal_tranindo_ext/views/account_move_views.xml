@@ -9,6 +9,8 @@
                 <data>
                     <field name="payment_reference" position="after">
                         <field name="fal_stock_picking_id"/>
+                        <field name="payment_voucher_bool" attrs="{'invisible': [('move_type', 'in', ('out_invoice', 'out_refund', 'out_receipt'))]}"/>
+                        <field name="is_delivery_address" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}"/>
                     </field>
                 </data>
             </field>

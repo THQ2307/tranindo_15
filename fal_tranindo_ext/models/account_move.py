@@ -9,6 +9,9 @@ class AccountInvoice(models.Model):
 
 
     fal_stock_picking_id = fields.Many2one("stock.picking", string="Delivery", compute='_fal_get_stock_picking')
+    date_invoice = fields.Date(string='Date Invoices')
+    payment_voucher_bool = fields.Boolean(string="Payment Voucher")
+    is_delivery_address = fields.Boolean(string="Delivery Address")
     
     @api.depends('invoice_line_ids')
     def _fal_get_stock_picking(self):

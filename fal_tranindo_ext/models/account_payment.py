@@ -8,3 +8,4 @@ class AccountPayment(models.Model):
 
     fal_paid_date = fields.Date(string='Paid Date')
     fal_payment_method = fields.Many2one('account.journal', string='Payment Method')
+    name = fields.Char(string="Name")

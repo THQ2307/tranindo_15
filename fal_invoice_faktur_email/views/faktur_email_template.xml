@@ -45,20 +45,26 @@
                                         <td style='border: 1px solid; text-align: center;'><t t-out="object.partner_id.name"/></td>
                                         <td style='border: 1px solid; text-align: center;'><t t-out="object.amount_total"/></td>
                                         <td style='border: 1px solid; text-align: center;'><t t-out="object.name"/></td>
-                                        <td style='border: 1px solid; text-align: center;'><t t-out="object.faktur_pajak_id.name"/></td>
+                                        <!-- <td style='border: 1px solid; text-align: center;'><t t-out="object.faktur_pajak_id.name"/></td> -->
+                                        <!-- Theres no faktur pajak id -->
+                                        <td style='border: 1px solid; text-align: center;'><t t-out="object.partner_id.name"/></td>
                                     </tr>
                                 </table>
                             </div>
 
                             <div style='margin-top: 25px;'>
                                 <tr>
-                                    <td>Invoice ini akan jatuh tempo pada <t t-out="object.date_due.strftime('%d %B %Y')"/></td>
+                                    <!-- <td>Invoice ini akan jatuh tempo pada <t t-out="object.date_due.strftime('%d %B %Y')"/></td> -->
+                                    <!-- Theres no date_due -->
+                                    <td>Invoice ini akan jatuh tempo pada <t t-out="object.invoice_date.strftime('%d %B %Y')"/></td>
                                 </tr>
                             </div>
 
                             <div style='margin-top: 15px;'>
                                 <tr>
-                                    <td>Saat melakukan pembayaran, mohon menuliskan No Invoice <b><t t-out="object.number"/></b> di bagian berita. </td>
+                                    <!-- <td>Saat melakukan pembayaran, mohon menuliskan No Invoice <b><t t-out="object.number"/></b> di bagian berita. </td> -->
+                                    <!-- Theres no object.number -->
+                                    <td>Saat melakukan pembayaran, mohon menuliskan No Invoice <b><t t-out="object.name"/></b> di bagian berita. </td>
                                 </tr>
                             </div>
 
