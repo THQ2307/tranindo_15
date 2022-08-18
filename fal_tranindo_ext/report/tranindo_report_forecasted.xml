@@ -1,0 +1,128 @@
+<odoo>
+    <template id="report_forecasted_tranindo" inherit_id="stock.report_product_product_replenishment">
+        <xpath expr="//div[hasclass('o_report_replenishment_page')]" position="replace">
+            <div class="page pt-3 o_report_replenishment_page">
+                <t t-set="future_virtual_available" t-value="docs['virtual_available'] + docs['qty']['in'] - docs['qty']['out']"/>
+                <t t-call="stock.report_replenishment_header"/>
+                <div class="o_report_graph"/>
+                <table class="o_report_replenishment table table-bordered">
+                    <thead>
+                        <tr class="bg-light">
+                            <td>Replenishment</td>
+                            <td>Receipt</td>
+                            <td t-if="docs['multiple_product']">Product</td>
+                            <td class="text-right"><t t-esc="docs['uom']"/></td>
+                            <td>Used by</td>
+                            <td>Delivery</td>
+                            <td>Purchase Order</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-if="docs['lines'] and not any(line['document_in'] or line['replenishment_filled'] for line in docs['lines'])">
+                            <td>Inventory On Hand</td>
+                            <td/>
+                            <td t-if="docs['multiple_product']"/>
+                            <td class="text-right">0</td>
+                            <td/>
+                            <td/>
+                            <td/>
+                            <td/>
+                        </tr>
+                        <tr t-foreach="docs['lines']" t-as="line" t-attf-class="#{line['is_matched'] and 'o_grid_match'}">
+                            <td t-attf-class="#{line['is_late'] and 'o_grid_warning'}">
+                                <a t-if="line['document_in']"
+                                    t-attf-href="#" t-esc="line['document_in'].name"
+                                    class="font-weight-bold" view-type="form"
+                                    t-att-res-model="line['document_in']._name"
+                                    t-att-res-id="line['document_in'].id"/>
+                                <t t-elif="line['reservation']">
+                                    Reserved from stock
+                                    <button t-if="line['move_out'] and line['move_out'].picking_id"
+                                        class="btn btn-sm btn-primary o_report_replenish_unreserve"
+                                        t-attf-model="stock.picking"
+                                        t-att-model-id="line['move_out'].picking_id.id"
+                                        name="unreserve_link">
+                                        Unreserve
+                                    </button>
+                                </t>
+                                <t t-elif="line['replenishment_filled']">
+                                    <t t-if="line['document_out']">Inventory On Hand
+                                        <button t-if="line['move_out'] and line['move_out'].picking_id"
+                                            class="btn btn-sm btn-primary o_report_replenish_reserve"
+                                            t-attf-model="stock.picking"
+                                            t-att-model-id="line['move_out'].picking_id.id"
+                                            name="reserve_link">
+                                            Reserve
+                                        </button>
+                                    </t>
+                                    <t t-else="">Free Stock</t>
+                                </t>
+                                <span t-else="" class="text-muted">Not Available</span>
+                            </td>
+                            <td t-esc="line['receipt_date'] or ''"
+                                t-attf-class="#{line['is_late'] and 'o_grid_warning'}"/>
+                            <td t-if="docs['multiple_product']" t-esc="line['product']['display_name']"/>
+                            <td class="text-right"><t t-if="not line['replenishment_filled']">- </t><t t-esc="line['quantity']" t-options="{'widget': 'float', 'precision': precision}"/></td>
+                            <td t-attf-class="#{not line['replenishment_filled'] and 'o_grid_warning'}" name="usedby_cell">
+                                <button t-if="line['move_out'] and line['move_out'].picking_id"
+                                    t-attf-class="o_priority o_priority_star o_report_replenish_change_priority fa fa-star#{' one' if line['move_out'].picking_id.priority=='1' else '-o zero'}"
+                                    t-attf-model="stock.picking"
+                                    t-att-model-id="line['move_out'].picking_id.id"
+                                    name="change_priority_link"
+                                />
+                                <a t-if="line['document_out']"
+                                    t-attf-href="#" t-esc="line['document_out'].name"
+                                    class="font-weight-bold" view-type="form"
+                                    t-att-res-model="line['document_out']._name"
+                                    t-att-res-id="line['document_out'].id"/>
+                            </td>
+                            <td t-esc="line['delivery_date'] or ''"
+                                t-attf-class="#{not line['replenishment_filled'] and 'o_grid_warning'}"/>
+                            <td t-attf-class="#{not line['replenishment_filled'] and 'o_grid_warning'}" name="usedby_cell">
+                                <span t-if="line['document_out']"
+                                    t-attf-href="#" t-esc="line['document_out'].delivery_count"
+                                    class="font-weight-bold" view-type="form"
+                                    t-att-res-model="line['document_out']._name"
+                                    t-att-res-id="line['document_out'].id"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr class="o_forecasted_row">
+                            <td colspan="2">Forecasted Inventory</td>
+                            <td t-esc="docs['virtual_available']" t-options="{'widget': 'float', 'precision': precision}" class="text-right"/>
+                        </tr>
+                    </thead>
+                    <tbody t-if="docs['qty']['in'] or docs['qty']['out']">
+                        <tr t-if="docs['draft_picking_qty']['in']" name="draft_picking_in">
+                            <td colspan="2">Incoming Draft Transfer</td>
+                            <td t-esc="docs['draft_picking_qty']['in']" t-options="{'widget': 'float', 'precision': precision}" class="text-right"/>
+                        </tr>
+                        <tr t-if="docs['draft_picking_qty']['out']" name="draft_picking_out">
+                            <td colspan="2">Outgoing Draft Transfer</td>
+                            <td t-esc="-docs['draft_picking_qty']['out']" t-options="{'widget': 'float', 'precision': precision}" class="text-right"/>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr class="o_forecasted_row">
+                            <td colspan="2">Forecasted with Pending</td>
+                            <td t-esc="future_virtual_available" t-options="{'widget': 'float', 'precision': precision}" class="text-right"/>
+                        </tr>
+                    </thead>
+                    <!-- <thead>
+                        <tr class="o_forecasted_row">
+                            <td colspan="3">Purchase Order</td>
+                            <td>
+                                <a t-if="line['document_out']"
+                                    t-attf-href="#" t-esc="line['document_out'].name"
+                                    class="font-weight-bold" view-type="form"
+                                    t-att-res-model="line['document_out']._name"
+                                    t-att-res-id="line['document_out'].id"/>
+                            </td>
+                        </tr>
+                    </thead> -->
+                </table>
+            </div>
+        </xpath>
+    </template>
+</odoo>

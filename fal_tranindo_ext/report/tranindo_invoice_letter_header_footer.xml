@@ -45,6 +45,8 @@
                     <span class="h4 o_bold">INVOICE</span>
                     <br/>
                     <span class="h7 o_bold">Page : <span class="page"/>/<span class="topage"/></span>
+                    <br/>
+                    <span class="h7 o_bold">No. SO : <span t-field="o.fal_stock_picking_id.sale_id.name"/></span>
                 </div>
                 <!--  -->
             </div>
@@ -72,7 +74,7 @@
                         </div>
                         <div class="w-75">
                             <span style="font-size:14px; margin-left: 30px;">
-                                : <span style="font-size:14px;" t-field="doc.fal_stock_picking_id.name"/>
+                                : <span style="font-size:14px;" t-field="doc.fal_stock_picking_id.sale_id.do_container"/>
                             </span>
                         </div>
                     </div>

@@ -13,7 +13,7 @@
                             <!--  -->
                             
                             <!-- TABLE FOR RECORD -->
-                            <div>
+                            <div style="margin-top: 0px;">
                                 <table class="table o_report_block_table table-sm">
                                     <thead>
                                         <tr>
@@ -92,7 +92,7 @@
                                     </tbody>
                                 </table>
                                 
-                                <hr style="background-color: black; width:30%; margin-left: 69%; margin-bottom: 0px;"/>
+                                <hr style="background-color: black; width:30%; margin-left: 69%; margin-bottom: 0px; margin-top: 0px;"/>
                                 <div>
                                     <div class="row">
                                         <div class="col-8"/>
@@ -124,6 +124,32 @@
                                 </div>
 
                                 <div class="row">
+                                    <div class="col-2">
+                                        <span>
+                                            Memo
+                                        </span>
+                                    </div>
+                                    <div class="col-10" style="margin-left:-50px;">
+                                        <span>
+                                            : <span t-field="doc.html_word"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="row" style="margin-top: 0px;">
+                                    <div class="col-2">
+                                        <span>
+                                            Terbilang
+                                        </span>
+                                    </div>
+                                    <div class="col-10" style="margin-left:-50px;">
+                                        <span>
+                                            : <span style="text-transform: capitalize;" t-esc="env['account.move'].get_amount_to_text(doc.amount_total)"/> <span t-field="doc.currency_id.currency_unit_label"/>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
                                     <div class="col-6 page-break">
                                         <br/>
                                         <span>
@@ -134,7 +160,7 @@
                                             </span>
                                         </span>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-6" style="margin-left: 50px;">
                                         <br/>
                                         <br/>
                                         <br/>
@@ -142,7 +168,7 @@
                                         <br/>
                                         <br/>
                                         <span style="margin-left:30px"/>
-                                        <span t-field="doc.company_id.invoice_name" style="margin-left:100px"/>
+                                        <span t-field="doc.company_id.invoice_ttd" style="margin-left:100px"/>
                                     </div>
                                 </div>
                             </div>
@@ -171,12 +197,12 @@
         <field name="page_height">139</field>
         <field name="page_width">216</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">46</field>
+        <field name="margin_top">50</field>
         <field name="margin_bottom">0</field>
         <field name="margin_left">0</field>
         <field name="margin_right">0</field>
         <field name="header_line" eval="False"/>
-        <field name="header_spacing">44</field>
+        <field name="header_spacing">48</field>
         <field name="dpi">90</field>
         <field name="report_ids" eval="[(4, ref('action_tranindo_invoice_letter_c5'))]"/>
     </record>

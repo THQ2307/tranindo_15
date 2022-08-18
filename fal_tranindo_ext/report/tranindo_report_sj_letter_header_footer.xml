@@ -45,6 +45,8 @@
                     <span class="h4 o_bold">SURAT JALAN</span>
                     <br/>
                     <span class="h7 o_bold">Page : <span class="page"/>/<span class="topage"/></span>
+                    <br/>
+                    <span class="h7 o_bold">Nomor SO : <span t-field="o.sale_id.name"/></span>
                 </div>
                 <!--  -->
             </div>

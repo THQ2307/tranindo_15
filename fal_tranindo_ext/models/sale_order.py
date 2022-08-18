@@ -8,6 +8,47 @@ _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    do_container = fields.Char(string="DO Number", compute="_get_picking_ids_refereces")
+    invoice_container = fields.Char(string="Invoice Number", compute="_get_invoice_ids_refereces")
+    sale_boolean = fields.Boolean(string="Sales Boolean", compute="_get_bool_value")
+    market = fields.Char(string="market")
+    wilayah = fields.Char(string="Wilayah")
+    is_final_customer = fields.Boolean(string="Is final")
+    final_customer = fields.Many2one("res.partner", string="Final Customer")
+
+    @api.depends('state')
+    def _get_bool_value(self):
+        for record in self:
+            if record.state == "done" or record.state == "sale":
+                record.sale_boolean = True
+            else:
+                record.sale_boolean = False
+
+    @api.depends("picking_ids")
+    def _get_picking_ids_refereces(self):
+        for record in self:
+            data = []
+            name = ""
+            for ids in record.picking_ids.filtered(lambda x: x.state == "done"):
+                data.append(ids.name)
+                if len(ids) > 1:
+                    name = "%s," % (data)
+                else:
+                    name = "%s" % (data)
+            record.do_container = name[1:-1].replace("'", "")
+
+    @api.depends("invoice_ids")
+    def _get_invoice_ids_refereces(self):
+        for record in self:
+            data = []
+            name = ""
+            for ids in record.invoice_ids.filtered(lambda x: x.state == "posted"):
+                data.append(ids.name)
+                if len(ids) > 1:
+                    name = "%s," % (data)
+                else:
+                    name = "%s" % (data)
+            record.invoice_container = name
 
     @api.depends('picking_ids')
     def _fal_get_stock_picking(self):

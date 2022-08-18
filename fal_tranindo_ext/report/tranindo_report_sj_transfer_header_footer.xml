@@ -19,7 +19,7 @@
 	</template>
 
     <template id="tranindo_external_header_footer_sj_transfer">
-        <div class='header' t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style"> 
+        <div class='header' t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style" style="margin-bottom:0px;"> 
             <div class="row">
                 <div class="col-2 border border-white">
                     <img t-if="res_company.logo"  t-attf-src="data:image/*;base64,{{res_company.logo}}" style="width:140px;"/>
@@ -45,6 +45,8 @@
                     <span class="h4 o_bold">SURAT JALAN</span>
                     <br/>
                     <span class="h7 o_bold">Page : <span class="page"/>/<span class="topage"/></span>
+                    <br/>
+                    <span class="h7 o_bold">Nomor SO : <span t-field="o.sale_id.name"/></span>
                 </div>
                 <!--  -->
             </div>
@@ -125,7 +127,7 @@
                     </div>
                 </div>
             </div>
-            <hr style="background-color: black;"/>
+            <!-- <hr style="background-color: black;"/> -->
         </div>
         <!--  -->
         <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">

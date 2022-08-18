@@ -8,6 +8,16 @@ _logger = logging.getLogger(__name__)
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
+    no_po_do = fields.Char(string="Customer Reference", compute="_get_customer_reference")
+    sticker_delivery = fields.Integer(string="Sticker Delivery")
+
+    @api.depends("sale_id")
+    def _get_customer_reference(self):
+        for record in self:
+            record.no_po_do = ""
+            if record.sale_id.client_order_ref:
+                record.no_po_do = record.sale_id.client_order_ref
+
     def _get_product_bom_report(self):
         data = []
         for record in self.move_ids_without_package:

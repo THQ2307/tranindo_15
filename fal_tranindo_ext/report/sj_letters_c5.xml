@@ -141,7 +141,7 @@
                                 </div>
                             </div>
                             <!--  -->
-                            <div class="row" style="page-break-before: always;">
+                            <div class="row" style="page-break-before: auto;">
                                 <div class="col-3">
                                     <t t-if="doc.company_id.invoice_sj1">
                                         <span>
@@ -290,12 +290,12 @@
         <field name="default" eval="True" />
         <field name="format">Letter</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">36</field>
+        <field name="margin_top">38</field>
         <field name="margin_bottom">0</field>
         <field name="margin_left">0</field>
         <field name="margin_right">0</field>
         <field name="header_line" eval="False"/>
-        <field name="header_spacing">34</field>
+        <field name="header_spacing">37</field>
         <field name="dpi">90</field>
         <field name="report_ids" eval="[(4, ref('action_tranindo_sj_letter_c5'))]"/>
     </record>
